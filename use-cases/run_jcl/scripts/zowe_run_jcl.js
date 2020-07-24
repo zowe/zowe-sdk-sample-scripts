@@ -76,6 +76,7 @@ try {
     process.exit(1);
 }
 
+const inputPath = path.join(__dirname, "..", "jcl", properties.localFile);
 const outputDir = path.join(__dirname, "..", "output");
 const expectedSuccessOutput = properties.expectedOutput;
 
@@ -148,12 +149,12 @@ setTimeout(() => {return null;}, 2000);
  *   Upload JCL file to dataset                                     *
  ********************************************************************/
 
-    console.log(`Uploading JCL file: ${properties.localFile}`);
+    console.log(`Uploading JCL file: ${inputPath}`);
     try {
-        const upload = await cli.Upload.fileToDataset(session, properties.localFile, `${properties.dataset.dsn}(${properties.dataset.member})`);
+        const upload = await cli.Upload.fileToDataset(session, inputPath, `${properties.dataset.dsn}(${properties.dataset.member})`);
         console.log(upload);
     } catch (err) {
-        console.error(`Unable to upload the file ${properties.localFile} to dataset ${properties.dataset.dsn}(${properties.dataset.member})`);
+        console.error(`Unable to upload the file ${inputPath} to dataset ${properties.dataset.dsn}(${properties.dataset.member})`);
         console.error(err.message);
         process.exit(1);
     }
