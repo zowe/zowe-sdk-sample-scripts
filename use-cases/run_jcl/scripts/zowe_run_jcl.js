@@ -212,7 +212,7 @@ setTimeout(() => {return null;}, 2000);
             process.exit(1);
         }
 
-        if (status != "INPUT" && status != "ACTIVE") {
+        if (status == "INPUT" || status == "ACTIVE") {
             // Wait so we aren't spamming the service
             setTimeout(() => {return null;}, 5000); 
         }
