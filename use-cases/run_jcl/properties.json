@@ -16,7 +16,7 @@
     },
     "localFile": "",
     "encoding": 1047,
-    "extension": "jcl",
+    "extension": "txt",
     "expectedOutput": [
         "STEP1 - STEP WAS EXECUTED",
         "STEP2 - STEP WAS EXECUTED"
