@@ -14,7 +14,6 @@
   "author": "Zowe CLI Team",
   "license": "EPL-2.0",
   "dependencies": {
-    "@zowe/cli": "^6.18.0",
-    "@zowe/imperative": "^4.7.4"
+    "@zowe/cli": "^6.18.0"
   }
 }

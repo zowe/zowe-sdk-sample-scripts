@@ -80,7 +80,7 @@ const outputDir = path.join(__dirname, "..", "output");
 const expectedSuccessOutput = properties.expectedOutput;
 
 // Session that will be used
-const session = new imperative.AbstractSession({
+const session = new imperative.Session({
     hostname: properties.zosmfHost,
     port: properties.zosmfPort,
     user: args.user,
