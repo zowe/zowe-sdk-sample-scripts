@@ -1,0 +1,76 @@
+{
+    "zosmfHost": "your.zosmf.instance.here",
+    "zosmfPort": 443,
+    "zosmfUser": "youruid",
+    "zosmfPassword": "yourpass",
+    "basepath": null,
+    "rejectUnauthorized": false,
+    "job": {
+        "name": "TEMPLATE",
+        "account": "#ACCT"
+    },
+    "program": {
+        "name": "TEMPLATE"
+    },
+    "asmDataset": {
+        "createDataset": true,
+        "dsn": "YOURID.PUBLIC.WORK.ASMPGM",
+        "member": "TEMPLATE",
+        "blocksize": 6160,
+        "directoryblocks": 25,
+        "alcunit": "CYL",
+        "primary": 9,
+        "secondary": 1,
+        "lrecl": 80,
+        "dsorg": "PO",
+        "volser": null
+    },
+    "asmmacDataset": {
+        "createDataset": true,
+        "dsn": "YOURID.PUBLIC.WORK.ASMMAC",
+        "blocksize": 6160,
+        "directoryblocks": 25,
+        "alcunit": "CYL",
+        "primary": 9,
+        "secondary": 1,
+        "lrecl": 80,
+        "dsorg": "PO",
+        "volser": null
+    },
+    "adataDataset": {
+        "createDataset": true,
+        "dsn": "YOURID.PUBLIC.WORK.SYSADATA",
+        "blocksize": 6160,
+        "directoryblocks": 25,
+        "alcunit": "CYL",
+        "primary": 9,
+        "secondary": 1,
+        "lrecl": 80,
+        "dsorg": "PO",
+        "volser": null
+    },
+    "objlibDataset": {
+        "createDataset": true,
+        "dsn": "YOURID.PUBLIC.WORK.OBJLIB",
+        "blocksize": 9140,
+        "directoryblocks": 25,
+        "alcunit": "CYL",
+        "primary": 9,
+        "secondary": 1,
+        "lrecl": 80,
+        "dsorg": "PO",
+        "volser": null
+    },
+    "loadlibDataset": {
+        "createDataset": true,
+        "dsn": "YOURID.PUBLIC.WORK.LOADLIB",
+        "blocksize": 32760,
+        "directoryblocks": 20,
+        "alcunit": "CYL",
+        "primary": 9,
+        "secondary": 1,
+        "lrecl": 16380,
+        "dsorg": "PO",
+        "volser": null
+    }
+}

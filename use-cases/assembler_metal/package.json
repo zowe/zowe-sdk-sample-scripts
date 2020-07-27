@@ -1,0 +1,27 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "tsc --pretty",
+    "genjcl": "node ./scripts/lib/genjcl",
+    "upload": "node ./scripts/lib/upload.js",
+    "build": "node ./scripts/lib/run_jcl.js",
+    "buildsrc": "tsc --pretty",
+    "start": "npm run upload && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/config": "0.0.34",
+    "@types/mustache": "^0.8.32",
+    "@types/node": "^10.11.3",
+    "config": "^2.0.1",
+    "mustache": "^3.0.1",
+    "typescript": "^3.9.0"
+  },
+  "dependencies": {
+    "@zowe/cli": "^6.19.0"
+  }
+}

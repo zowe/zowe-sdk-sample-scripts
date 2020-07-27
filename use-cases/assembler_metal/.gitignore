@@ -1,0 +1,6 @@
+output
+node_modules
+config/local.json
+config/custom.json
+build
+scripts/lib
