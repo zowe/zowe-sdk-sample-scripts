@@ -6,11 +6,11 @@ This project implements the v1 branch of [this Assembler Metal Template reposito
 
 To use the sample locally, you will need the following:
 
-- Node.js and npm install
+- Node.js and npm installed
 - Access to public NPM
 - Access to a mainframe running z/OSMF
 
-## Using this exaple
+## Using this example
 
 1. Run `npm install`.
 2. Make a copy of `config/default.json` and name it `config/local.json`.
