@@ -1,5 +1,4 @@
 #! /bin/env node
-// import * as config from "config";
 import * as mustache from "mustache";
 import * as fs from "fs";
 import * as path from "path";
