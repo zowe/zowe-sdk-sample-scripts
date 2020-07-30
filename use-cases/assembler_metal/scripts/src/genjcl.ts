@@ -2,8 +2,8 @@
 import * as mustache from "mustache";
 import * as fs from "fs";
 import * as path from "path";
-import * as config from "config";
 
+const config = require("../../config/local.json");
 const mypath = path.join(__dirname, "..", "..", "work", "jcl", "template.jcl");
 const jcl = fs.readFileSync(mypath).toString();
 const rendered = mustache.render(jcl, config);
