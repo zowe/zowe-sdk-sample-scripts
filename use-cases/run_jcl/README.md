@@ -1,4 +1,4 @@
-# Zowe CLI SonarQube Sample
+# Zowe SDK Run JCL Example
 This sample serves as a working example of using Zowe SDK.
 
 The sample includes a means to execute and check JCL output locally via `npm` scripts and via a Jenkins pipeline.
@@ -9,8 +9,10 @@ The sample will upload the JCL source file from the local file specified in [cus
 For detailed information on configuration and execution, start with [Prerequisites](#Prerequisites).
 
 1. Clone the project
-2. Configure [custom_properties.json](./custom_properties.json)
-3. From the project root, run `npm run jcl -- --user yourTSOuserid --password yourTSOpassword`
+2. Make a copy of [properties.json](./properties.json) and name it `custom_properties.json`
+3. Configure [custom_properties.json](./custom_properties.json)
+4. From the project root, run `npm install`
+5. From the project root, run `npm run jcl -- --user yourTSOuserid --password yourTSOpassword`
 
 ## Prerequisites
 To use the sample locally you will need the following:

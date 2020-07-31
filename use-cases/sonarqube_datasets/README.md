@@ -11,10 +11,12 @@ The sample will download the source files from the partitioned data-sets specifi
 For detailed information on configuration and execution, start with [Prerequisites](#Prerequisites).
 
 1. Clone the project
-2. Configure [custom_properties.json](./custom_properties.json)
-3. Configure [sonar-project.properties](./sonar-project.properties)
-4. From the project root, run `npm run download -- --user yourTSOuserid --password yourTSOpassword`
-5. From the project root, run `npm run sonar`
+2. Make a copy of [properties.json](./properties.json) and name it `custom_properties.json`
+3. Configure [custom_properties.json](./custom_properties.json)
+4. Configure [sonar-project.properties](./sonar-project.properties)
+5. From the project root, run `npm install`
+6. From the project root, run `npm run download -- --user yourTSOuserid --password yourTSOpassword`
+7. From the project root, run `npm run sonar`
 
 ## Prerequisites
 To use the sample locally you will need the following:
