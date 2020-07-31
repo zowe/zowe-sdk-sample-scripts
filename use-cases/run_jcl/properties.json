@@ -1,7 +1,7 @@
 {
     "zosmfHost": "your.zosmf.hostname",
     "zosmfPort": "your.zosmf.port",
-    "createDataset": false,
+    "createDataset": true,
     "dataset": {
         "dsn": "yourpmf.group.jcl",
         "member": "mymember",
