@@ -52,8 +52,8 @@
     "objlibDataset": {
         "createDataset": true,
         "dsn": "YOURID.PUBLIC.WORK.OBJLIB",
-        "blocksize": 9140,
-        "directoryblocks": 25,
+        "blocksize": 6160,
+        "directoryblocks": 20,
         "alcunit": "CYL",
         "primary": 9,
         "secondary": 1,
