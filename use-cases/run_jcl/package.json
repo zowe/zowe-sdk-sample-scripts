@@ -1,0 +1,19 @@
+{
+  "name": "zowe-cli-run-jcl-example",
+  "version": "1.0.0",
+  "description": "Sample that runs a jcl job that is uploaded from the user's computer to the mainframe.",
+  "scripts": {
+    "jcl": "node scripts/zowe_run_jcl.js",
+    "cleanup": "node scripts/cleanup_output.js"
+  },
+  "keywords": [
+    "JCL",
+    "z/OS",
+    "Mainframe"
+  ],
+  "author": "Zowe CLI Team",
+  "license": "EPL-2.0",
+  "dependencies": {
+    "@zowe/cli": "^6.18.0"
+  }
+}

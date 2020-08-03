@@ -1,0 +1,24 @@
+{
+    "zosmfHost": "your.zosmf.hostname",
+    "zosmfPort": "your.zosmf.port",
+    "createDataset": true,
+    "dataset": {
+        "dsn": "yourpmf.group.jcl",
+        "member": "mymember",
+        "blocksize": 6160,
+        "directoryblocks": 25,
+        "alcunit": "CYL",
+        "primary": 1,
+        "secondary": 1,
+        "lrecl": 80,
+        "dsorg": "PO",
+        "volser": null
+    },
+    "localFile": "iefbr14.jcl",
+    "encoding": 1047,
+    "jobOutputExtension": "txt",
+    "expectedOutput": [
+        "STEP1 - STEP WAS EXECUTED",
+        "STEP2 - STEP WAS EXECUTED"
+    ]
+}
