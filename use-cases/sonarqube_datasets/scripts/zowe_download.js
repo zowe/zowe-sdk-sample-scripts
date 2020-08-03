@@ -30,12 +30,12 @@
  *   If an error is detected, the script will exit immediately with *
  *   an exit code of 1.                                             *
  ********************************************************************/
-//const spawnSync = require("child_process").spawnSync;
-const os = require("os");
 const path = require("path");
 const fs = require("fs");
 const cli = require("@zowe/cli");
 const imperative = require("@zowe/imperative");
+
+imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
 
 /******************************************************************** 
  *   Process the script input arguments                             *                              

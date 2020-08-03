@@ -30,11 +30,12 @@
  *   If an error is detected, the script will exit immediately with *
  *   an exit code of 1.                                             *
  ********************************************************************/
-const os = require("os");
 const path = require("path");
 const fs = require("fs");
 const cli = require("@zowe/cli");
 const imperative = require("@zowe/imperative");
+
+imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
 
 /******************************************************************** 
  *   Process the script input arguments                             *                              
@@ -114,9 +115,20 @@ const uploadOptions = {
 const jobDownloadOptions = {
     outDir: outputDir,
     omitJobDirectory: false,
-    extension: properties.extension,
+    extension: properties.jobOutputExtension,
     jobname: undefined,
     jobid: undefined
+};
+
+const parms = {
+    jclSource: undefined,
+    viewAllSpoolContent: true,
+    directory: undefined,
+    extension: undefined,
+    volume: undefined,
+    waitForActive: undefined,
+    waitForOutput: undefined,
+    task: undefined
 };
 
 (async() => {
@@ -128,7 +140,9 @@ const jobDownloadOptions = {
         console.log(`Creating dataset: ${properties.dataset.dsn}`);
         try {
             const create = await cli.Create.dataSet(session, cli.CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.dataset.dsn, datasetOptions);
+            console.log("Create API response: ");
             console.log(create);
+            console.log(`\n`);
         } catch (err) {
             if (err.message.toString().includes("Dynamic allocation Error")) {
                 console.log("Dataset already exists.");
@@ -152,7 +166,9 @@ setTimeout(() => {return null;}, 2000);
     console.log(`Uploading JCL file: ${inputPath}`);
     try {
         const upload = await cli.Upload.fileToDataset(session, inputPath, `${properties.dataset.dsn}(${properties.dataset.member})`);
+        console.log("Upload API response: ");
         console.log(upload);
+        console.log(`\n`);
     } catch (err) {
         console.error(`Unable to upload the file ${inputPath} to dataset ${properties.dataset.dsn}(${properties.dataset.member})`);
         console.error(err.message);
@@ -176,7 +192,9 @@ setTimeout(() => {return null;}, 2000);
     console.log(`Running JCL in file: ${properties.localFile}`);
     try {
         const run = await cli.SubmitJobs.submitJob(session, `${properties.dataset.dsn}(${properties.dataset.member})`);
+        console.log("Run API response: ");
         console.log(run);
+        console.log(`\n`);
         owner = run.owner;
         jobid = run.jobid;
         jobname = run.jobname;
@@ -218,6 +236,8 @@ setTimeout(() => {return null;}, 2000);
         }
     }
 
+    const apiObj = await cli.SubmitJobs.checkSubmitOptions(session, parms, response)
+
     console.log(`Job ${jobid} exited with return code ${response.retcode}`);
 
 /******************************************************************** 
@@ -256,23 +276,20 @@ if (!fs.existsSync(outputDir)) {
  *   Parse the job output                                           *
  ********************************************************************/
 
-    const reportDir = path.join(outputDir, jobid, "JES2");
-    const jesJcl = path.join(reportDir, "JESJCL.txt");
-    const jesMessageLog = path.join(reportDir, "JESMSGLG.txt");
-    const jesSystemMessages = path.join(reportDir, "JESYSMSG.txt");
-
-    const jesJclContents = fs.readFileSync(jesJcl).toString();
-    const jesMessageLogContents = fs.readFileSync(jesMessageLog).toString();
-    const jesSystemMessagesContents = fs.readFileSync(jesSystemMessages).toString();
-
     let error = 0;
+    let jclResponse;
+
+    for (const spoolFile of apiObj) {
+        jclResponse = jclResponse + spoolFile.data;
+    };
+
+    if (jclResponse == null) {
+        console.error(`No output gathered from z/OSMF.`)
+        process.exit(1);
+    }
 
     for (const validationString of expectedSuccessOutput)  {
-        if (jesJclContents.includes(validationString)) {
-            continue;
-        } else if (jesMessageLogContents.includes(validationString)) {
-            continue;
-        } else if (jesSystemMessagesContents.includes(validationString)) {
+        if (jclResponse.includes(validationString)) {
             continue;
         } else {
             console.error(`Could not find the string ${validationString} in the output of ${jobid}`);

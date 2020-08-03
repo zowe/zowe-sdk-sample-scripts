@@ -1,8 +1,10 @@
 import { Create, ICreateDataSetOptions, CreateDataSetTypeEnum, Upload, IUploadOptions } from "@zowe/cli";
-import { Session, ISession, SessConstants } from "@zowe/imperative";
+import { Session, ISession, SessConstants, Logger, LoggingConfigurer } from "@zowe/imperative";
 import * as path from "path";
 
 const properties = require("../../config/local.json");
+
+Logger.initLogger(LoggingConfigurer.configureLogger('logs', {name: 'test'}));
 
 const sessionOptions: ISession = {
     "hostname": properties.zosmfHost,

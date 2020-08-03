@@ -14,9 +14,9 @@
         "dsorg": "PO",
         "volser": null
     },
-    "localFile": "",
+    "localFile": "iefbr14.jcl",
     "encoding": 1047,
-    "extension": "txt",
+    "jobOutputExtension": "txt",
     "expectedOutput": [
         "STEP1 - STEP WAS EXECUTED",
         "STEP2 - STEP WAS EXECUTED"

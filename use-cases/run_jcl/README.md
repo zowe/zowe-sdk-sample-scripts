@@ -49,9 +49,9 @@ Example properties file:
         "dsorg": "PO",
         "volser": null
     },
-    "localFile": "",
+    "localFile": "iefbr14.jcl",
     "encoding": 1047,
-    "extension": "jcl",
+    "jobOutputExtension": "txt",
     "expectedOutput": [
         "STEP1 - STEP WAS EXECUTED",
         "STEP2 - STEP WAS EXECUTED"
@@ -60,6 +60,8 @@ Example properties file:
 ```
 
 Customize `zosmf.hostname` to be your z/OSMF host and `1234` to be your z/OSMF port. Customize the options provided in `dataset` to define what dataset to use, what member to populate with the JCL, and the settings to use if you want to create one. Customize `localfile` to be the JCL stored on the system, `encoding` to be your codepage, and `expectedOutput` to be what output you expect your job to return if completed successfully.
+
+It is important to note that the `localfile` property expects the file to reside within the `jcl` directory inside of the repository.
 
 ## Running the sample locally
 Once you have cloned the project and performed [basic configuration](#Basic-Configuration) you are ready to run the scripts locally.

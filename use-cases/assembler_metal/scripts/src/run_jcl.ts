@@ -1,5 +1,5 @@
 import { SubmitJobs, IJob, GetJobs, DownloadJobs, IDownloadAllSpoolContentParms } from "@zowe/cli";
-import { ISession, SessConstants, Session } from "@zowe/imperative";
+import { ISession, SessConstants, Session, Logger, LoggingConfigurer } from "@zowe/imperative";
 import { readFileSync, existsSync, mkdirSync } from "fs";
 import * as path from "path";
 
@@ -7,6 +7,8 @@ const properties = require("../../config/local.json");
 const outputPath = path.join(__dirname, "..", "..", "output");
 const jclPath = path.join(__dirname, "..", "..", "build", "custom.jcl");
 const jcl = readFileSync(jclPath).toString();
+
+Logger.initLogger(LoggingConfigurer.configureLogger(path.join(__dirname,'..','..','logs'), {name: 'test'}));
 
 const sessionOptions: ISession = {
     "hostname": properties.zosmfHost,
