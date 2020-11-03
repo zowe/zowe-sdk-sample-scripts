@@ -17,7 +17,6 @@
     "@types/config": "0.0.34",
     "@types/mustache": "^0.8.32",
     "@types/node": "^10.11.3",
-    "@zowe/cli": "^6.19.0",
     "mustache": "^3.0.1",
     "typescript": "^3.9.0"
   },
