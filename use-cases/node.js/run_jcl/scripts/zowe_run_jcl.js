@@ -37,6 +37,7 @@ const jobs = require("@zowe/zos-jobs-for-zowe-sdk");
 const imperative = require("@zowe/imperative");
 
 imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 /******************************************************************** 
  *   Process the script input arguments                             *                              
@@ -158,7 +159,7 @@ const parms = {
  *   Give zos a chance to realize the dataset exists                *
  ********************************************************************/
 
-setTimeout(() => {}, 2000);
+    await delay(2000);
 
 /******************************************************************** 
  *   Upload JCL file to dataset                                     *
@@ -180,7 +181,7 @@ setTimeout(() => {}, 2000);
  *   Give zos a chance to realize the JCL exists                    *
  ********************************************************************/
 
-    setTimeout(() => {}, 2000);
+    await delay(2000);
 
 /******************************************************************** 
  *   Run JCL that was uploaded                                      *
@@ -208,7 +209,7 @@ setTimeout(() => {}, 2000);
  *   Let the job run for awhile                                     *
  ********************************************************************/
 
-    setTimeout(() => {}, 2000);
+    await delay(2000);
 
 /******************************************************************** 
  *   Wait for the job to be out of input and execution              *
@@ -233,7 +234,7 @@ setTimeout(() => {}, 2000);
 
         if (status == "INPUT" || status == "ACTIVE") {
             // Wait so we aren't spamming the service
-            setTimeout(() => {}, 5000); 
+            await delay(5000);
         }
     }
 
@@ -245,16 +246,16 @@ setTimeout(() => {}, 2000);
  *   Give the system a second or two                                *
  ********************************************************************/
 
-setTimeout(() => {}, 2000);
+    await delay(5000);
 
 /******************************************************************** 
  *   Make the directory for the job output                          *                              
  ********************************************************************/
 
-// Create the output directory 
-if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir);
-}
+    // Create the output directory 
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+    }
 
 /******************************************************************** 
  *   Download the job output                                        *
