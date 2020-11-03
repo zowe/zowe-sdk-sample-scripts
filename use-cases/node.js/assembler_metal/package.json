@@ -20,5 +20,11 @@
     "@zowe/cli": "^6.19.0",
     "mustache": "^3.0.1",
     "typescript": "^3.9.0"
+  },
+  "dependencies": {
+    "@zowe/core-for-zowe-sdk": "^6.24.2",
+    "@zowe/imperative": "^4.8.1",
+    "@zowe/zos-files-for-zowe-sdk": "^6.24.2",
+    "@zowe/zos-jobs-for-zowe-sdk": "^6.24.2"
   }
 }

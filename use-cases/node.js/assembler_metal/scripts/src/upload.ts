@@ -1,4 +1,4 @@
-import { Create, ICreateDataSetOptions, CreateDataSetTypeEnum, Upload, IUploadOptions } from "@zowe/cli";
+import { Create, ICreateDataSetOptions, CreateDataSetTypeEnum, Upload, IUploadOptions } from "@zowe/zos-files-for-zowe-sdk";
 import { Session, ISession, SessConstants, Logger, LoggingConfigurer } from "@zowe/imperative";
 import * as path from "path";
 

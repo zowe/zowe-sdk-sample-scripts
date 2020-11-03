@@ -1,4 +1,4 @@
-import { SubmitJobs, IJob, GetJobs, DownloadJobs, IDownloadAllSpoolContentParms } from "@zowe/cli";
+import { SubmitJobs, IJob, GetJobs, DownloadJobs, IDownloadAllSpoolContentParms } from "@zowe/zos-jobs-for-zowe-sdk";
 import { ISession, SessConstants, Session, Logger, LoggingConfigurer } from "@zowe/imperative";
 import { readFileSync, existsSync, mkdirSync } from "fs";
 import * as path from "path";
@@ -30,6 +30,7 @@ const downloadJobOptions: IDownloadAllSpoolContentParms = {
 }
 
 const session = new Session(sessionOptions);
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 (async() => {
 
@@ -64,7 +65,7 @@ const session = new Session(sessionOptions);
         }
         
         if (status == "INPUT" || status == "ACTIVE") {
-            setTimeout(() => {return null;}, 5000);
+            await delay(5000);
         }
         if (checkNum == 100 && status != "OUTPUT") {
             console.error(`Job ${jobSubmitResponse.jobname} (${jobSubmitResponse.jobid}) did not complete in time.`)

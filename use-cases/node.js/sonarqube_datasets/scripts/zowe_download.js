@@ -32,7 +32,7 @@
  ********************************************************************/
 const path = require("path");
 const fs = require("fs");
-const cli = require("@zowe/cli");
+const files = require("@zowe/zos-files-for-zowe-sdk");
 const imperative = require("@zowe/imperative");
 
 imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
@@ -109,7 +109,7 @@ process.chdir(srcDir);
                 encoding: properties.encoding
             }
 
-            await cli.Download.allMembers(session, `${ds}`, downloadOptions).then((result) => {
+            await files.Download.allMembers(session, `${ds}`, downloadOptions).then((result) => {
                 console.log(`Downloading: ${ds}`);
                 console.log(result);
                 console.log("");

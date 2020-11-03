@@ -32,7 +32,8 @@
  ********************************************************************/
 const path = require("path");
 const fs = require("fs");
-const cli = require("@zowe/cli");
+const files = require("@zowe/zos-files-for-zowe-sdk");
+const jobs = require("@zowe/zos-jobs-for-zowe-sdk");
 const imperative = require("@zowe/imperative");
 
 imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
@@ -139,7 +140,7 @@ const parms = {
     if (properties.createDataset == true) {
         console.log(`Creating dataset: ${properties.dataset.dsn}`);
         try {
-            const create = await cli.Create.dataSet(session, cli.CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.dataset.dsn, datasetOptions);
+            const create = await files.Create.dataSet(session, files.CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.dataset.dsn, datasetOptions);
             console.log("Create API response: ");
             console.log(create);
             console.log(`\n`);
@@ -157,7 +158,7 @@ const parms = {
  *   Give zos a chance to realize the dataset exists                *
  ********************************************************************/
 
-setTimeout(() => {return null;}, 2000);
+setTimeout(() => {}, 2000);
 
 /******************************************************************** 
  *   Upload JCL file to dataset                                     *
@@ -165,7 +166,7 @@ setTimeout(() => {return null;}, 2000);
 
     console.log(`Uploading JCL file: ${inputPath}`);
     try {
-        const upload = await cli.Upload.fileToDataset(session, inputPath, `${properties.dataset.dsn}(${properties.dataset.member})`);
+        const upload = await files.Upload.fileToDataset(session, inputPath, `${properties.dataset.dsn}(${properties.dataset.member})`);
         console.log("Upload API response: ");
         console.log(upload);
         console.log(`\n`);
@@ -179,7 +180,7 @@ setTimeout(() => {return null;}, 2000);
  *   Give zos a chance to realize the JCL exists                    *
  ********************************************************************/
 
-    setTimeout(() => {return null;}, 2000);
+    setTimeout(() => {}, 2000);
 
 /******************************************************************** 
  *   Run JCL that was uploaded                                      *
@@ -191,7 +192,7 @@ setTimeout(() => {return null;}, 2000);
 
     console.log(`Running JCL in file: ${properties.localFile}`);
     try {
-        const run = await cli.SubmitJobs.submitJob(session, `${properties.dataset.dsn}(${properties.dataset.member})`);
+        const run = await jobs.SubmitJobs.submitJob(session, `${properties.dataset.dsn}(${properties.dataset.member})`);
         console.log("Run API response: ");
         console.log(run);
         console.log(`\n`);
@@ -207,7 +208,7 @@ setTimeout(() => {return null;}, 2000);
  *   Let the job run for awhile                                     *
  ********************************************************************/
 
-    setTimeout(() => {return null;}, 2000);
+    setTimeout(() => {}, 2000);
 
 /******************************************************************** 
  *   Wait for the job to be out of input and execution              *
@@ -222,7 +223,7 @@ setTimeout(() => {return null;}, 2000);
         
         checkNum = checkNum + 1;
         try {
-            response = await cli.GetJobs.getJob(session, jobid);
+            response = await jobs.GetJobs.getJob(session, jobid);
             status = response.status;
             console.log(`Job ${jobid} status check #${checkNum}: ${status}`)
         } catch (err) {
@@ -232,11 +233,11 @@ setTimeout(() => {return null;}, 2000);
 
         if (status == "INPUT" || status == "ACTIVE") {
             // Wait so we aren't spamming the service
-            setTimeout(() => {return null;}, 5000); 
+            setTimeout(() => {}, 5000); 
         }
     }
 
-    const apiObj = await cli.SubmitJobs.checkSubmitOptions(session, parms, response)
+    const apiObj = await jobs.SubmitJobs.checkSubmitOptions(session, parms, response)
 
     console.log(`Job ${jobid} exited with return code ${response.retcode}`);
 
@@ -244,7 +245,7 @@ setTimeout(() => {return null;}, 2000);
  *   Give the system a second or two                                *
  ********************************************************************/
 
-setTimeout(() => {return null;}, 2000);
+setTimeout(() => {}, 2000);
 
 /******************************************************************** 
  *   Make the directory for the job output                          *                              
@@ -264,7 +265,7 @@ if (!fs.existsSync(outputDir)) {
     jobDownloadOptions.jobid = jobid;
 
     try {
-        jobInfo = await cli.DownloadJobs.downloadAllSpoolContentCommon(session, jobDownloadOptions);
+        jobInfo = await jobs.DownloadJobs.downloadAllSpoolContentCommon(session, jobDownloadOptions);
         console.log(`Got job spool output from job ${jobid}`);
     } catch (err) {
         console.error(`Failed to download job spool output: ${err.message}`);
