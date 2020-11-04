@@ -5,3 +5,4 @@ config/custom.json
 build
 scripts/lib
 logs
+package-lock.json
