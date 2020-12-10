@@ -12,7 +12,7 @@
     "start": "npm run upload && npm run build"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@types/config": "0.0.34",
     "@types/mustache": "^0.8.32",
