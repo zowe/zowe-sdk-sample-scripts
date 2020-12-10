@@ -12,7 +12,7 @@
     "Mainframe"
   ],
   "author": "Zowe CLI Team",
-  "license": "EPL-2.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "@zowe/core-for-zowe-sdk": "^6.24.2",
     "@zowe/imperative": "^4.8.1",
