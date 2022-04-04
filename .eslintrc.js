@@ -22,8 +22,7 @@ module.exports = {
   ],
   "rules": {
       "license-header/header": [ "error", "LICENSE_HEADER" ],
-      "max-len": "off",
-      // "max-len": ["warn", 150],
+      "max-len": ["warn", 150],
       "no-console": "off",
       // "no-console": "error",
       "no-multiple-empty-lines": "warn",

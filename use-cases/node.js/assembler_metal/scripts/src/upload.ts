@@ -101,7 +101,8 @@ console.log(macDir);
     if (properties.asmDataset.createDataset) {
         try {
             console.log("Creating ASM Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmDataset.dsn, createAsmDatasetOptions);
+            createResponse = await Create.dataSet(
+                session,CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmDataset.dsn, createAsmDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -116,7 +117,8 @@ console.log(macDir);
     if (properties.asmmacDataset.createDataset) {
         try {
             console.log("Creating ASMMAC Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmmacDataset.dsn, createAsmmacDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmmacDataset.dsn, createAsmmacDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -131,7 +133,8 @@ console.log(macDir);
     if (properties.adataDataset.createDataset) {
         try {
             console.log("Creating ADATA Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.adataDataset.dsn, createAdataDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.adataDataset.dsn, createAdataDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -146,7 +149,8 @@ console.log(macDir);
     if (properties.objlibDataset.createDataset) {
         try {
             console.log("Creating OBJLIB Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.objlibDataset.dsn, createObjlibDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.objlibDataset.dsn, createObjlibDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -161,7 +165,8 @@ console.log(macDir);
     if (properties.loadlibDataset.createDataset) {
         try {
             console.log("Creating LOADLIB Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_BINARY, properties.loadlibDataset.dsn, createLoadlibDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_BINARY, properties.loadlibDataset.dsn, createLoadlibDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
