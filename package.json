@@ -1,0 +1,28 @@
+{
+  "name": "zowe-sdk-sample-scripts",
+  "version": "0.0.1",
+  "description": "This repository contains some sample scripts that utilize various components of the Zowe SDKs organized by use cases.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint \"use-cases/**/*.ts\" \"use-cases/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zowe/zowe-sdk-sample-scripts.git"
+  },
+  "dependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-license-header": "^0.4.0",
+    "eslint-plugin-unused-imports": "^1.1.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0"
+  },
+  "keywords": ["zowe", "sdk", "sample", "scripts"],
+  "author": "Zowe CLI Squad",
+  "license": "EPL-2.0 or Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zowe/zowe-sdk-sample-scripts/issues"
+  },
+  "homepage": "https://github.com/zowe/zowe-sdk-sample-scripts#readme"
+}

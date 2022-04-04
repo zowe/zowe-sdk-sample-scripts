@@ -1,16 +1,16 @@
-/*
- * This program and the accompanying materials are made available under the terms of the *
- * Eclipse Public License v2.0 which accompanies this distribution, and is available at  *
- * https://www.eclipse.org/legal/epl-v20.html                                            *
- *                                                                                       *
- * SPDX-License-Identifier: EPL-2.0                                                      *
- *                                                                                       *
- * Copyright Contributors to the Zowe Project.                                           *
+/**
+ * This program and the accompanying materials are made available and may be used, at your option, under either:
+ * * Eclipse Public License v2.0, available at https://www.eclipse.org/legal/epl-v20.html, OR
+ * * Apache License, version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+ *
+ * Copyright Contributors to the Zowe Project.
  */
 
-/******************************************************************** 
+/********************************************************************
  *   This script is intended to be executed from the command line   *
- *   at your terminal or in a Jenkins (or other CI/CD tool)         * 
+ *   at your terminal or in a Jenkins (or other CI/CD tool)         *
  *   pipeline.                                                      *
  *                                                                  *
  *   It requires that you pass the following arguments:             *
@@ -25,7 +25,7 @@
  *                                                                  *
  *   The script parses the input, creates the local directory       *
  *   for the source files and downloads all members from each PDS   *
- *   specified using Zowe CLI.                                      *       
+ *   specified using Zowe CLI.                                      *
  *                                                                  *
  *   If an error is detected, the script will exit immediately with *
  *   an exit code of 1.                                             *
@@ -37,8 +37,8 @@ const imperative = require("@zowe/imperative");
 
 imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
 
-/******************************************************************** 
- *   Process the script input arguments                             *                              
+/********************************************************************
+ *   Process the script input arguments                             *
  ********************************************************************/
 
 // Set of required script arguments
@@ -57,24 +57,24 @@ const missingArgs = requiredArgs.filter((value) => !(value in args));
 
 // If there are missing arguments, report the missing args and exit.
 if (missingArgs.length > 0) {
-    console.error(`Missing Script Arguments:`)
+    console.error(`Missing Script Arguments:`);
     console.error(missingArgs);
     console.error("");
     process.exit(1);
 }
 
-/******************************************************************** 
- *   Create the local src directory (target of download)            *                              
+/********************************************************************
+ *   Create the local src directory (target of download)            *
  ********************************************************************/
 
-// Create the src directory 
+// Create the src directory
 const srcDir = path.join(__dirname, "..", "zossrc");
 if (!fs.existsSync(srcDir)) {
     fs.mkdirSync(srcDir);
 }
 
-/******************************************************************** 
- *   Download the members using Zowe CLI                            *                              
+/********************************************************************
+ *   Download the members using Zowe CLI                            *
  ********************************************************************/
 
 // Read the properties file
@@ -107,7 +107,7 @@ process.chdir(srcDir);
                 extension: srcType,
                 maxConcurrentRequests: 10,
                 encoding: properties.encoding
-            }
+            };
 
             await files.Download.allMembers(session, `${ds}`, downloadOptions).then((result) => {
                 console.log(`Downloading: ${ds}`);
@@ -119,5 +119,5 @@ process.chdir(srcDir);
                 process.exit(1);
             });
         }
-    };
+    }
 })();

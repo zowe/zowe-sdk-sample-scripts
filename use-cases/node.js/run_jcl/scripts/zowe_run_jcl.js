@@ -1,16 +1,16 @@
-/*
- * This program and the accompanying materials are made available under the terms of the *
- * Eclipse Public License v2.0 which accompanies this distribution, and is available at  *
- * https://www.eclipse.org/legal/epl-v20.html                                            *
- *                                                                                       *
- * SPDX-License-Identifier: EPL-2.0                                                      *
- *                                                                                       *
- * Copyright Contributors to the Zowe Project.                                           *
+/**
+ * This program and the accompanying materials are made available and may be used, at your option, under either:
+ * * Eclipse Public License v2.0, available at https://www.eclipse.org/legal/epl-v20.html, OR
+ * * Apache License, version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+ *
+ * Copyright Contributors to the Zowe Project.
  */
 
-/******************************************************************** 
+/********************************************************************
  *   This script is intended to be executed from the command line   *
- *   at your terminal or in a Jenkins (or other CI/CD tool)         * 
+ *   at your terminal or in a Jenkins (or other CI/CD tool)         *
  *   pipeline.                                                      *
  *                                                                  *
  *   It requires that you pass the following arguments:             *
@@ -25,7 +25,7 @@
  *                                                                  *
  *   The script parses the input, creates the local directory       *
  *   for the source files and downloads all members from each PDS   *
- *   specified using Zowe CLI.                                      *       
+ *   specified using Zowe CLI.                                      *
  *                                                                  *
  *   If an error is detected, the script will exit immediately with *
  *   an exit code of 1.                                             *
@@ -39,8 +39,8 @@ const imperative = require("@zowe/imperative");
 imperative.Logger.initLogger(imperative.LoggingConfigurer.configureLogger(path.join(__dirname,'..','logs'), {name: 'test'}));
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-/******************************************************************** 
- *   Process the script input arguments                             *                              
+/********************************************************************
+ *   Process the script input arguments                             *
  ********************************************************************/
 
 // Set of required script arguments
@@ -48,7 +48,6 @@ const requiredArgs = ["user", "password"];
 
 // Parse the input arguments into an args object
 const args = {};
-let relPath = "";
 for (let i = 0; i < process.argv.length; i++) {
     if (process.argv[i].startsWith("--")) {
         args[process.argv[i].replace("--", "")] = process.argv[i + 1];
@@ -60,13 +59,13 @@ const missingArgs = requiredArgs.filter((value) => !(value in args));
 
 // If there are missing arguments, report the missing args and exit.
 if (missingArgs.length > 0) {
-    console.error(`Missing Script Arguments:`)
+    console.error(`Missing Script Arguments:`);
     console.error(missingArgs);
     console.error("");
     process.exit(1);
 }
 
-/******************************************************************** 
+/********************************************************************
  *   Do some of the required setup now                              *
  ********************************************************************/
 
@@ -108,6 +107,7 @@ const datasetOptions = {
 };
 
 // Options for uploading the JCL file
+// eslint-disable-next-line unused-imports/no-unused-vars
 const uploadOptions = {
     binary: false,
     fileName: properties.localFile
@@ -134,7 +134,7 @@ const parms = {
 };
 
 (async() => {
-/******************************************************************** 
+/********************************************************************
  *   Create the dataset, if requested                               *
  ********************************************************************/
 
@@ -155,15 +155,15 @@ const parms = {
         }
     }
 
-/******************************************************************** 
- *   Give zos a chance to realize the dataset exists                *
- ********************************************************************/
+    /********************************************************************
+     *   Give zos a chance to realize the dataset exists                *
+     ********************************************************************/
 
     await delay(2000);
 
-/******************************************************************** 
- *   Upload JCL file to dataset                                     *
- ********************************************************************/
+    /********************************************************************
+     *   Upload JCL file to dataset                                     *
+     ********************************************************************/
 
     console.log(`Uploading JCL file: ${inputPath}`);
     try {
@@ -177,15 +177,15 @@ const parms = {
         process.exit(1);
     }
 
-/******************************************************************** 
- *   Give zos a chance to realize the JCL exists                    *
- ********************************************************************/
+    /********************************************************************
+     *   Give zos a chance to realize the JCL exists                    *
+     ********************************************************************/
 
     await delay(2000);
 
-/******************************************************************** 
- *   Run JCL that was uploaded                                      *
- ********************************************************************/
+    /********************************************************************
+     *   Run JCL that was uploaded                                      *
+     ********************************************************************/
 
     let owner;
     let jobid;
@@ -197,23 +197,24 @@ const parms = {
         console.log("Run API response: ");
         console.log(run);
         console.log(`\n`);
+        // eslint-disable-next-line unused-imports/no-unused-vars
         owner = run.owner;
         jobid = run.jobid;
         jobname = run.jobname;
     } catch (err) {
-        console.error(`Failed to run job: ${err.message}`)
+        console.error(`Failed to run job: ${err.message}`);
         process.exit(1);
     }
 
-/******************************************************************** 
- *   Let the job run for awhile                                     *
- ********************************************************************/
+    /********************************************************************
+     *   Let the job run for awhile                                     *
+     ********************************************************************/
 
     await delay(2000);
 
-/******************************************************************** 
- *   Wait for the job to be out of input and execution              *
- ********************************************************************/
+    /********************************************************************
+     *   Wait for the job to be out of input and execution              *
+     ********************************************************************/
 
     let status = "INPUT";
     let checkNum = 0;
@@ -221,12 +222,12 @@ const parms = {
     console.log(`Check job status`);
 
     while (( status == "INPUT" || status == "ACTIVE" ) && checkNum < 100 ) {
-        
+
         checkNum = checkNum + 1;
         try {
             response = await jobs.GetJobs.getJob(session, jobid);
             status = response.status;
-            console.log(`Job ${jobid} status check #${checkNum}: ${status}`)
+            console.log(`Job ${jobid} status check #${checkNum}: ${status}`);
         } catch (err) {
             console.error(`Failed to get information: ${err.message}`);
             process.exit(1);
@@ -238,55 +239,56 @@ const parms = {
         }
     }
 
-    const apiObj = await jobs.SubmitJobs.checkSubmitOptions(session, parms, response)
+    const apiObj = await jobs.SubmitJobs.checkSubmitOptions(session, parms, response);
 
     console.log(`Job ${jobid} exited with return code ${response.retcode}`);
 
-/******************************************************************** 
- *   Give the system a second or two                                *
- ********************************************************************/
+    /********************************************************************
+     *   Give the system a second or two                                *
+     ********************************************************************/
 
     await delay(5000);
 
-/******************************************************************** 
- *   Make the directory for the job output                          *                              
- ********************************************************************/
+    /********************************************************************
+     *   Make the directory for the job output                          *
+     ********************************************************************/
 
-    // Create the output directory 
+    // Create the output directory
     if (!fs.existsSync(outputDir)) {
         fs.mkdirSync(outputDir);
     }
 
-/******************************************************************** 
- *   Download the job output                                        *
- ********************************************************************/
+    /********************************************************************
+     *   Download the job output                                        *
+     ********************************************************************/
 
     let jobInfo;
     jobDownloadOptions.jobname = jobname;
     jobDownloadOptions.jobid = jobid;
 
     try {
+        // eslint-disable-next-line unused-imports/no-unused-vars
         jobInfo = await jobs.DownloadJobs.downloadAllSpoolContentCommon(session, jobDownloadOptions);
         console.log(`Got job spool output from job ${jobid}`);
     } catch (err) {
         console.error(`Failed to download job spool output: ${err.message}`);
         process.exit(1);
-    };
+    }
 
 
-/******************************************************************** 
- *   Parse the job output                                           *
- ********************************************************************/
+    /********************************************************************
+     *   Parse the job output                                           *
+     ********************************************************************/
 
     let error = 0;
     let jclResponse;
 
     for (const spoolFile of apiObj) {
         jclResponse = jclResponse + spoolFile.data;
-    };
+    }
 
     if (jclResponse == null) {
-        console.error(`No output gathered from z/OSMF.`)
+        console.error(`No output gathered from z/OSMF.`);
         process.exit(1);
     }
 

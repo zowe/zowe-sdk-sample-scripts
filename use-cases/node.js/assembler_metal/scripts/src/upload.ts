@@ -1,3 +1,13 @@
+/**
+ * This program and the accompanying materials are made available and may be used, at your option, under either:
+ * * Eclipse Public License v2.0, available at https://www.eclipse.org/legal/epl-v20.html, OR
+ * * Apache License, version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+ *
+ * Copyright Contributors to the Zowe Project.
+ */
+
 import { Create, ICreateDataSetOptions, CreateDataSetTypeEnum, Upload, IUploadOptions } from "@zowe/zos-files-for-zowe-sdk";
 import { Session, ISession, SessConstants, Logger, LoggingConfigurer } from "@zowe/imperative";
 import * as path from "path";
@@ -91,7 +101,8 @@ console.log(macDir);
     if (properties.asmDataset.createDataset) {
         try {
             console.log("Creating ASM Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmDataset.dsn, createAsmDatasetOptions);
+            createResponse = await Create.dataSet(
+                session,CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmDataset.dsn, createAsmDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -101,12 +112,13 @@ console.log(macDir);
                 process.exit(1);
             }
         }
-    };
+    }
 
     if (properties.asmmacDataset.createDataset) {
         try {
             console.log("Creating ASMMAC Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmmacDataset.dsn, createAsmmacDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.asmmacDataset.dsn, createAsmmacDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -116,12 +128,13 @@ console.log(macDir);
                 process.exit(1);
             }
         }
-    };
+    }
 
     if (properties.adataDataset.createDataset) {
         try {
             console.log("Creating ADATA Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.adataDataset.dsn, createAdataDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.adataDataset.dsn, createAdataDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -131,12 +144,13 @@ console.log(macDir);
                 process.exit(1);
             }
         }
-    };
+    }
 
     if (properties.objlibDataset.createDataset) {
         try {
             console.log("Creating OBJLIB Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.objlibDataset.dsn, createObjlibDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_CLASSIC, properties.objlibDataset.dsn, createObjlibDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -146,12 +160,13 @@ console.log(macDir);
                 process.exit(1);
             }
         }
-    };
+    }
 
     if (properties.loadlibDataset.createDataset) {
         try {
             console.log("Creating LOADLIB Dataset");
-            createResponse = await Create.dataSet(session, CreateDataSetTypeEnum.DATA_SET_BINARY, properties.loadlibDataset.dsn, createLoadlibDatasetOptions);
+            createResponse = await Create.dataSet(
+                session, CreateDataSetTypeEnum.DATA_SET_BINARY, properties.loadlibDataset.dsn, createLoadlibDatasetOptions);
             console.log(createResponse.commandResponse);
         } catch (err) {
             if (err.message.includes("Dynamic allocation Error")) {
@@ -161,10 +176,10 @@ console.log(macDir);
                 process.exit(1);
             }
         }
-    };
+    }
 
     try {
-        console.log(`Uploading ASM to ${properties.asmDataset.dsn}`)
+        console.log(`Uploading ASM to ${properties.asmDataset.dsn}`);
         uploadResponse = await Upload.fileToDataset(session, asmTemplate, properties.asmDataset.dsn, uploadOptions);
         console.log(uploadResponse.commandResponse);
     } catch (err) {
@@ -174,7 +189,7 @@ console.log(macDir);
     }
 
     try {
-        console.log(`Uploading ASMMAC to ${properties.asmmacDataset.dsn}`)
+        console.log(`Uploading ASMMAC to ${properties.asmmacDataset.dsn}`);
         uploadResponse = await Upload.dirToPds(session, macDir, properties.asmmacDataset.dsn, uploadOptions);
         console.log(uploadResponse.commandResponse);
     } catch (err) {
